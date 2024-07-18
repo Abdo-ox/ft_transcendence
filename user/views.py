@@ -60,19 +60,13 @@ def Oauth_42_callback(request):
     access_token  = response.json()['access_token']
     response = requests.get(conf['info_url'], params={'access_token' : access_token})
     data = response.json()
-    f = 0
-    # for key, value in data.items():
-    #     f = f + 1
-    #     if f == 13:
-    #         break
-    #     print(f"\33[34;1m{key} : {value}\33[0m")
     info_usr = {
         'email' : data['email'],
         'first_name' : data['first_name'],
         'last_name' : data['last_name'],
         'profile_image' : data['image']['versions']['medium'],
     }
-    user = User.objects.create_user(data['login'], None, **info_usr)
+    User.objects.create_user(data['login'], None, **info_usr)
     return redirect('login')
 
 def Logout(request):
