@@ -90,6 +90,7 @@ OAUTH_CONFIG = {
         'base_url': 'https://api.intra.42.fr/oauth/authorize',
         'token_url': 'https://api.intra.42.fr/oauth/token',
         'info_url': ' https://api.intra.42.fr/v2/me',
+        'usrs_url': 'https://api.intra.42.fr/users'
     }
 }
 

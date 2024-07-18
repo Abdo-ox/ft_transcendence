@@ -27,7 +27,6 @@ def Register(request):
     context = {}
     if request.method == 'POST':
         form = RegisterationForm(request.POST)
-        print(f"\33[35;1m{form}\33[0m")
         if form.is_valid():
             form.save()
             return redirect('home')

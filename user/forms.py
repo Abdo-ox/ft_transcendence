@@ -2,7 +2,25 @@ from django.contrib.auth.forms import UserCreationForm
 from user.models import User
 from django import forms
 from django.contrib.auth import authenticate
+from django.conf import settings
+import requests
 
+def IsIntranetUser(username):
+    conf = settings.OAUTH_CONFIG['42']
+    data_token = {
+        'client_id': conf['client_id'],
+        'client_secret': conf['client_secret'],
+        'grant_type': 'client_credentials'
+    }
+
+    response = requests.post(conf['token_url'], data=data_token)
+    access_token = response.json()['access_token']
+    response = requests.get(conf['usrs_url'] + username, params={'access_token': access_token})
+
+    print(f"\33[31;1m{response}")
+    if response.status_code == 200:
+        return True
+    return False
 
 class RegisterationForm(UserCreationForm):
     email = forms.EmailField(max_length=255, help_text='required. Add a valid email')
@@ -24,8 +42,9 @@ class RegisterationForm(UserCreationForm):
         try:
             account = User.objects.get(username=username)
         except User.DoesNotExist:
-            return username
-        raise forms.ValidationError('Username "{username}" is already in use.')
+            if not IsIntranetUser('/' + username):
+                return username
+        raise forms.ValidationError(f'Username "{username}" is already in use.')
 
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']
