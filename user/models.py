@@ -14,7 +14,8 @@ class UserManager(BaseUserManager):
             first_name = data['first_name'],
             last_name = data['last_name']
         )
-        user.set_password(password)
+        if password:
+            user.set_password(password)
         user.save(using=self._db)
         return user
 

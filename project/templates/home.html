@@ -44,7 +44,7 @@
     <div class="container">
         <h1>Welcome to the Home Page</h1>
         <p>You're logged in!</p>
-        <form method="post" action="/logout/">
+        <form method="post" action="/auth/logout/">
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>

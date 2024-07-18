@@ -86,7 +86,8 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form>
+        <form method="post">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -95,12 +96,20 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
+                {% if form.errors%}
+                    {% for fields, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif%}
             <button type="submit">Login</button>
         </form>
         <div class="oauth-buttons">
-            <button>Login with Google</button>
-            <button class="facebook">Login with Facebook</button>
-            <button class="github">Login with GitHub</button>
+            <button class="github">
+
+                <a class="github" href="/auth/42/">Login with 42</a>
+            </button>
         </div>
         <div class="register-link">
             <p>Don't have an account? <a href="/auth/register/">Register</a></p>
