@@ -46,6 +46,9 @@
         <p>You're logged in!</p>
         <form method="post" action="/auth/logout/">
             {% csrf_token %}
+            <!-- {% for user in users %}
+                {{ user }}<br> -->
+            {% endfor %}
             <button type="submit">Logout</button>
         </form>
     </div>
