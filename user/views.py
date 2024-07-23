@@ -59,6 +59,10 @@ def Oauth_42_callback(request):
     access_token  = response.json()['access_token']
     response = requests.get(conf['info_url'], params={'access_token' : access_token})
     data = response.json()
+    user = authenticate(username=data['login'])
+    if user:
+        login(request, user)
+        return redirect('home')
     info_usr = {
         'email' : data['email'],
         'first_name' : data['first_name'],
