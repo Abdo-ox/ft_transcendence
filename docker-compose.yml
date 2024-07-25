@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  user_management:
+    build: ./srcs/user_management
+    container_name: user_management
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    networks:
+      - net
+
+  db_nginx:
+    build: ./srcs/db_nginx
+    container_name: db_nginx
+    ports:
+      - "443:443"
+      - "80:80"
+    env_file:
+      - .env
+    networks:
+      - net
+    depends_on:
+      - user_management
+
+networks:
+  net:
