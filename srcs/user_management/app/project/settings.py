@@ -15,6 +15,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,12 +89,12 @@ AUTH_PASSWORD_VALIDATORS = [
 OAUTH_CONFIG = {
     '42': {
         'client_id': 'u-s4t2ud-589237e6394550420d14a9a59740b48214effbb5b50d9943c952f85a1e639e46',
-        'client_secret': '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',
+        'client_secret': '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',
         'redirect_uri': 'http://localhost:8000/auth/42/callback',
         'base_url': 'https://api.intra.42.fr/oauth/authorize',
         'token_url': 'https://api.intra.42.fr/oauth/token',
         'info_url': ' https://api.intra.42.fr/v2/me',
-        'usrs_url': 'https://api.intra.42.fr/users'
+        'usrs_url': 'https://api.intra.42.fr/v2/users'
     }
 }
 

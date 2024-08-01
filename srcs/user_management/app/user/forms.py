@@ -12,12 +12,12 @@ def IsIntranetUser(username):
         'client_secret': conf['client_secret'],
         'grant_type': 'client_credentials'
     }
-
     response = requests.post(conf['token_url'], data=data_token)
+    print(f"=================>>>\33[31;m{conf['usrs_url'] + username}")
     access_token = response.json()['access_token']
     response = requests.get(conf['usrs_url'] + username, params={'access_token': access_token})
 
-    print(f"\33[31;1m{response}")
+    print(f"\33[31;1m{response.status_code}")
     if response.status_code == 200:
         return True
     return False
@@ -43,6 +43,7 @@ class RegisterationForm(UserCreationForm):
             account = User.objects.get(username=username)
         except User.DoesNotExist:
             if not IsIntranetUser('/' + username):
+                print("is not intranet user--------------------------------------->")
                 return username
         raise forms.ValidationError(f'Username "{username}" is already in use.')
 

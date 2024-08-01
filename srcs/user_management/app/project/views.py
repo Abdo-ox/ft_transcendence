@@ -7,7 +7,7 @@ from django.http import JsonResponse
 def home(request):
     context = {}
     if request.user.is_authenticated: #request.user.friend_list.friends.all()
-        users = request.user.friends.all()
+        users = User.objects.exclude(username=request.user.username)
         print(f"\33[34;1muser: {users}")
         context['users'] =  users
         return render(request, 'home.html', context)

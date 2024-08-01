@@ -11,8 +11,11 @@ services:
       - .env
     volumes:
       - ./srcs/user_management/app:/usr/src/app
+      - ./srcs/is_ready:/is_ready
     networks:
       - net
+    depends_on:
+      - db_nginx
 
   db_nginx:
     build: ./srcs/db_nginx
@@ -24,8 +27,10 @@ services:
       - .env
     networks:
       - net
-    depends_on:
-      - user_management
+    volumes:
+      - ./srcs/is_ready:/is_ready
+      - ./srcs/db_nginx/front-end:/usr/share/nginx/html
+    
 
 networks:
   net:

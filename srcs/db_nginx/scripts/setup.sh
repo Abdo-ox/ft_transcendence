@@ -1,4 +1,17 @@
 #!/bin/bash
+
+chown -R postgres:postgres /var/lib/postgresql/15/main
+chown -R postgres:postgres /etc/postgresql/15/main
+chown -R postgres:postgres /var/log/postgresql
+echo "---------------------------------------------------->"
+service postgresql start 
+echo "---------------------------------------------------->$DB_USER"
+echo "---------------------------------------------------->$DB_NAME"
+psql -U $DB_USER -c "drop database $DB_NAME;"
+psql -U $DB_USER -c "create database $DB_NAME;"
+echo "---------------------------------------------------->"
+psql -U $DB_USER -c "alter user $DB_USER with password '${DB_PASS}'"
+echo "---------------------------------------------------->"
 apt update && apt install openssl > /dev/null 2>&1 
 mkdir -p $PATH_CRT
 
@@ -20,6 +33,10 @@ http {
 
         ssl_certificate $PATH_CRT/my.crt;
         ssl_certificate_key $PATH_CRT/my.key;
+        location / {
+            root  /usr/share/nginx/html;
+            index index.html;
+        }
 
         location /auth {
             proxy_pass http://$AUTH_SERVER:8000;
@@ -40,15 +57,5 @@ http {
     }
 }
 EOF
-chown -R postgres:postgres /var/lib/postgresql/15/main
-chown -R postgres:postgres /etc/postgresql/15/main
-chown -R postgres:postgres /var/log/postgresql
-echo "---------------------------------------------------->"
-service postgresql start 
-echo "---------------------------------------------------->$DB_USER"
-echo "---------------------------------------------------->$DB_NAME"
-psql -U $DB_USER -c "create database $DB_NAME;"
-echo "---------------------------------------------------->"
-psql -U $DB_USER -c "alter user $DB_USER with password '${DB_PASS}'"
-echo "---------------------------------------------------->"
+touch /is_ready/yes
 nginx -g "daemon off;"

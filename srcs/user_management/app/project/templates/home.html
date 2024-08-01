@@ -38,6 +38,10 @@
         button:hover {
             background-color: #c82333;
         }
+        .send-request{
+            background-color: rgb(108, 7, 248);
+            margin-bottom : 10px;
+        }
     </style>
 </head>
 <body>
@@ -46,8 +50,14 @@
         <p>You're logged in!</p>
         <form method="post" action="/auth/logout/">
             {% csrf_token %}
-            <!-- {% for user in users %}
-                {{ user }}<br> -->
+            {% for user in users%}
+            <li>
+                {{user.username}}
+                <form>
+                    {% csrf_token %}
+                    <button class="send-request">send friend request</button>
+                </form>
+            </li>
             {% endfor %}
             <button type="submit">Logout</button>
         </form>
