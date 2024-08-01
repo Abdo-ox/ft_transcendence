@@ -12,13 +12,12 @@ WORKDIR /usr/src/app
 
 COPY app .
 
-
 RUN pip install --upgrade pip && pip  install -r requirements.txt
 
-COPY scripts/buildApp.sh .
+COPY scripts/buildApp.sh /
 
-RUN chmod 777 buildApp.sh
+RUN chmod 777 /buildApp.sh
 
 EXPOSE 8000
 
-CMD ["./buildApp.sh"]
+CMD ["/buildApp.sh"]
