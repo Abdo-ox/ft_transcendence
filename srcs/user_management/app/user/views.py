@@ -42,7 +42,6 @@ def Oauth_42(request):
         'response_type' : 'code'
     }
     url = f"{conf['base_url']}?{urllib.parse.urlencode(params)}"
-    print("\33[31;1m", url)
     return redirect(url)
 
 def printJsonData(data):

@@ -3,7 +3,6 @@
 chown -R postgres:postgres /var/lib/postgresql/15/main
 chown -R postgres:postgres /etc/postgresql/15/main
 chown -R postgres:postgres /var/log/postgresql
-echo "---------------------------------------------------->"
 service postgresql start 
 echo "---------------------------------------------------->$DB_USER"
 echo "---------------------------------------------------->$DB_NAME"
