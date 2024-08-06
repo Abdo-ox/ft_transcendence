@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Login, Register, Logout, Oauth_42, Oauth_42_callback
+from .views import Login, Register, Logout, Oauth_42_callback
 
 urlpatterns = [
     path('register/', Register, name='register'),

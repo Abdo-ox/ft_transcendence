@@ -37,8 +37,7 @@ http {
             root  /usr/share/nginx/html;
             index home.html;
         }
-
-        location /auth {
+        location /api {
             proxy_pass http://$AUTH_SERVER:8000;
             proxy_set_header Host \$host;
             proxy_set_header X-Real-IP \$remote_addr;
@@ -46,7 +45,6 @@ http {
             proxy_set_header X-Forwarded-Proto \$scheme;
         }
     }
-
     server {
         listen 80;
         server_name localhost;

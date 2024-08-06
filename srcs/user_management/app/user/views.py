@@ -1,48 +1,37 @@
 from django.shortcuts import render, redirect
 from user.forms import RegisterationForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
+from rest_framework.decorators import api_view
 from django.conf import settings
 import urllib.parse
 import requests
+import json
 from user.models import User
+from django.http import JsonResponse
 
+@api_view(['POST'])
 def Login(request):
-    context = {}
-    if request.user.is_authenticated:
+    data = json.loads(request.body)
+    form = LoginForm(data)
+    if form.is_valid():
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        login(request, user)
         return redirect('home')
+    errors = form.errors.as_json()
+    return JsonResponse(json.loads(errors))
 
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('home')
-        else:
-            context['form'] = form
-    return render(request, 'login.html', context)
-
+@api_view(['POST'])
 def Register(request):
-    context = {}
-    if request.method == 'POST':
-        form = RegisterationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-        else:
-            context['form'] = form
-    return render(request, 'register.html', context)
-
-def Oauth_42(request):
-    conf  = settings.OAUTH_CONFIG['42']
-    params = {
-        'client_id' : conf['client_id'],
-        'redirect_uri' : conf['redirect_uri'],
-        'response_type' : 'code'
-    }
-    url = f"{conf['base_url']}?{urllib.parse.urlencode(params)}"
-    return redirect(url)
+    data = json.loads(request.body)
+    print(data)
+    form = RegisterationForm(data)
+    if form.is_valid():
+        form.save()
+        return redirect('/login.html')
+    errors = form.errors.as_json()
+    return JsonResponse(json.loads(errors))
 
 def printJsonData(data):
     for key, value in data.items():

@@ -2,13 +2,19 @@ from django.shortcuts import render, redirect
 from user.models import User 
 from .serializer import UserSerializer
 from django.http import JsonResponse
+from django.middleware.csrf import get_token
+from rest_framework.decorators import api_view
 
+@api_view(['GET'])
+def getCsrfToken(request):
+    token = get_token(request)
+    return JsonResponse({'csrf_token': token})
 
+@api_view(['GET'])
 def home(request):
     context = {}
     if request.user.is_authenticated: #request.user.friend_list.friends.all()
         users = User.objects.exclude(username=request.user.username)
-        print(f"\33[34;1muser: {users}")
         context['users'] =  users
         return render(request, 'home.html', context)
     else:

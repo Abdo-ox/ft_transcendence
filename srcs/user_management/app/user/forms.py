@@ -13,11 +13,9 @@ def IsIntranetUser(username):
         'grant_type': 'client_credentials'
     }
     response = requests.post(conf['token_url'], data=data_token)
-    print(f"=================>>>\33[31;m{conf['usrs_url'] + username}")
     access_token = response.json()['access_token']
     response = requests.get(conf['usrs_url'] + username, params={'access_token': access_token})
 
-    print(f"\33[31;1m{response.status_code}")
     if response.status_code == 200:
         return True
     return False
@@ -27,7 +25,7 @@ class RegisterationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'password1', 'password2', 'first_name', 'last_name')
+        fields = ('email', 'username', 'first_name', 'last_name', 'password2', 'password1')
         
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -58,6 +56,14 @@ class RegisterationForm(UserCreationForm):
         if not last_name.isalpha():
             raise forms.ValidationError('last_name must be alphabet')
         return last_name
+        
+    def clean_password1(self):
+        password1 = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
+        if password1 and password2 and password1 == password2:
+            return password1
+        raise forms.ValidationError("password and the comfirmed not identical")
+
 
 
 class LoginForm(forms.ModelForm):
