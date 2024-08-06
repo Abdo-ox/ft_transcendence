@@ -35,7 +35,7 @@ http {
         ssl_certificate_key $PATH_CRT/my.key;
         location / {
             root  /usr/share/nginx/html;
-            index index.html;
+            index home.html;
         }
 
         location /auth {
