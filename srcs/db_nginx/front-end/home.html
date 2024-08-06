@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Color Slider</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="home.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="#" class="logo"><img id="logo" src="fourtnite4k/neoon.png" alt="Logo"></a>
+        <div class="action">
+            <div class="searchBx">
+                <a href="#"><i class='bx bx-search'></i></a>
+                <input type="text" placeholder="search">
+            </div>
+            <a class="bel" href="#"><i class="fa-regular fa-bell"></i></a></li>
+            <div class="profile-box">
+                <div class="img-bx">
+                    <img src="src/profile.jpg" alt="">
+                </div>
+                <a href="profile.html" class="name">username</a>
+            </div>
+        </div>
+    </header>
+    <main class="content">
+        <div class="flex-item flex1">
+            <ul class="nav">
+                <li><a href="#" class="active"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fas fa-comments"></i>Chat</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Setting</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+        <div class="flex-item flex2">
+           <section>
+            <img src="" alt="">
+            <div class="t-content">
+                <div class="Info">
+                    <h2 class="t-title">Clash of Champions</h2>
+                    <p>Discover the upcoming tournaments where champions will rise and legends will be made. 
+                        The arena is set for thrilling matches that will determine the true victors. 
+                        <br> Click 'Add' to create your own and join the competitive action!"
+                    </p>
+                    <button class="btn">Add</button>
+                </div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img class="img-position" src="fourtnite4k/tou2.jpeg" alt="">
+                            <div class="overlay">
+                            <a href=""> Join</a>
+                            <h2>title example  </h2>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="fourtnite4k/tour1.jpeg" alt="">
+                            <div class="overlay">
+                                <a href=""> Join</a>
+                            <h2>title example</h2>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="fourtnite4k/back-Photoroom.png" alt="">
+                            <div class="overlay">
+                                <a href=""> Join</a>
+                            <h2>title example</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+        </section>
+            <div class="game-bx">
+                <div class="card">
+                    <img src="fourtnite4k/f2.jpeg" alt="">
+                    <div class="card-content">
+                        <h3>Challenge a Friend </h3>
+                        <button class="btm"> Play</button>
+                    </div>
+                </div> 
+                <div class="card">
+                    <img src="fourtnite4k/fr2.jpeg" alt="">
+                    <div class="card-content">
+                        <h3>Can you beat the AI </h3>
+                        <button class="btm"> Play</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="fourtnite4k/stranger.jpeg" alt="">
+                    <div class="card-content">
+                        <h3>Unknown Rival </h3>
+                        <button class="btm"> Play</button>
+                    </div>
+                </div>
+            </div>
+        <div class="statistic">
+            <h2>Victory statistics</h2>
+        </div>
+        </div>
+        <div class="flex-item flex3">
+            <div class="coalition">
+                <h3>Coalition Rank</h3>
+                 <div class="stairs">
+                    <div class="st2">
+                        <div class="coali-bx">
+                            <img id="coalSecond" src="whitwill/coalition5.png" alt="">
+                        </div>
+                        <div class="number2">
+                            <h1>2</h1>
+                        </div>
+                    </div>
+                    <div class="st1">
+                        <div id="gold-background" class="coali-bx1">
+                            <img id="coalFirst" src="whitwill/coalition4.png" alt="">
+                        </div>
+                        <div class="number1">
+                            <h1>1</h1>
+                        </div>
+                    </div>
+                    <div class="st3">
+                        <div class="coali-bx">
+                            <img id="coalThird" src="whitwill/coalichin3.png" alt="">
+                        </div>
+                        <div class="number3">
+                            <h3 style="color: #fff; ;">3</h3>
+                        </div>
+                    </div> 
+                </div> 
+            </div>
+            <div class="Coalition-chart">
+                <h2>Strength of Each Coalition</h2>
+                <canvas id="piechart" width="300"></canvas>
+            </div>
+            <div class="Chart">
+                <h2> Match Statistics Overview</h2>
+                <canvas id="myChart" width="300"></canvas>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="home.js"></script>
+</body>
+
+</html>

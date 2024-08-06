@@ -26,6 +26,7 @@ error_log /var/log/nginx/error.log;
 events {}
 
 http {
+    include       /etc/nginx/mime.types;
     server {
         listen 443 ssl;
         server_name localhost;
