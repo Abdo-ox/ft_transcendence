@@ -12,8 +12,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const pass = faker.internet.password();                                                  //to autofill
     document.getElementById('password1').value = pass;                                       //to autofill
     document.getElementById('password2').value = pass;                                       //to autofill
+    
     document.getElementById('submit-btn').addEventListener('click', ()=>{
         submitForm('/api/register/', ids, csrf_token);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key == 'Enter')
+            submitForm('/api/register/', ids, csrf_token);
     });
 }, {once: true});
 

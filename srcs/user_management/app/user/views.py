@@ -18,7 +18,7 @@ def Login(request):
         password = form.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         login(request, user)
-        return redirect('home')
+        return redirect('/home.html')
     errors = form.errors.as_json()
     return JsonResponse(json.loads(errors))
 
@@ -28,7 +28,12 @@ def Register(request):
     print(data)
     form = RegisterationForm(data)
     if form.is_valid():
-        form.save()
+        password = form.cleaned_data['password1']
+        user = form.save()
+        print("\33[32;1m", user.username, "\33[0m")
+        print("\33[32;1m", password, "\33[0m")
+        user.set_password(password)
+        user.save()
         return redirect('/login.html')
     errors = form.errors.as_json()
     return JsonResponse(json.loads(errors))

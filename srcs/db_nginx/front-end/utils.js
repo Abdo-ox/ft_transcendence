@@ -61,6 +61,10 @@ export const submitForm = (url, ids, csrf_token) => {
             alert(id ,' is required');
             return ;
         }
+        if (id == 'password2' && fields[id] != fields['password1']) {
+            alert('passwords not equal');
+            return ;
+        }
     }
     fetch(url, {
         method: 'POST',
