@@ -14,4 +14,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (event.key == 'Enter')
             submitForm('/api/login/', ids, csrf_token);
     });
+
+    document.getElementById('intra-btn').addEventListener('click', ()=>{
+        console.log('clicked');
+        fetch('/api/42/oauth/').then(response =>{
+            if (response.redirected)
+                console.log("you are redirected to the url:", response.url);
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+        });
+    });
 }, {once: true});

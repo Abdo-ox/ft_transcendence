@@ -90,13 +90,23 @@ OAUTH_CONFIG = {
     '42': {
         'client_id': 'u-s4t2ud-589237e6394550420d14a9a59740b48214effbb5b50d9943c952f85a1e639e46',
         'client_secret': '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',
-        'redirect_uri': 'http://localhost:8000/auth/42/callback',
+        'redirect_uri': 'https://localhost/api/42/callback',
         'base_url': 'https://api.intra.42.fr/oauth/authorize',
         'token_url': 'https://api.intra.42.fr/oauth/token',
         'info_url': ' https://api.intra.42.fr/v2/me',
         'usrs_url': 'https://api.intra.42.fr/v2/users'
     }
 }
+
+class C:
+    r = "\033[31;1m"
+    g = "\033[32;1m"
+    y = "\033[33;1m"
+    b = "\033[34;1m"
+    m = "\033[35;1m"
+    c = "\033[36;1m"
+    d = "\033[0m"
+
 
 LANGUAGE_CODE = 'en-us'
 

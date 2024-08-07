@@ -8,6 +8,7 @@ import requests
 import json
 from user.models import User
 from django.http import JsonResponse
+from project.settings import C as c
 
 @api_view(['POST'])
 def Login(request):
@@ -24,9 +25,7 @@ def Login(request):
 
 @api_view(['POST'])
 def Register(request):
-    data = json.loads(request.body)
-    print(data)
-    form = RegisterationForm(data)
+    form = RegisterationForm(request.data)
     if form.is_valid():
         password = form.cleaned_data['password1']
         user = form.save()
@@ -38,13 +37,17 @@ def Register(request):
     errors = form.errors.as_json()
     return JsonResponse(json.loads(errors))
 
+def redirectTo42(request):
+    return redirect("https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-589237e6394550420d14a9a59740b48214effbb5b50d9943c952f85a1e639e46&redirect_uri=https%3A%2F%2Flocalhost%2Fapi%2F42%2Fcallback&response_type=code")
+
 def printJsonData(data):
     for key, value in data.items():
         if isinstance(value, dict):
-            print(f"\33[34;1m{key}:")
+            print(f"{c.g} {key}:")
+            print("=============================================================================>")
             printJsonData(value)
         else:
-            print(f"\33[34;1m{key}: {value}")
+            print(f"{c.b}{key}: {value}")
 
 def Oauth_42_callback(request):
     conf  = settings.OAUTH_CONFIG['42']
@@ -56,23 +59,28 @@ def Oauth_42_callback(request):
         'redirect_uri': conf['redirect_uri'],
         'code': code
     }
+    print(f"\33[34;1m{params}")
     response = requests.post(conf['token_url'], data=params)
-    access_token  = response.json()['access_token']
-    response = requests.get(conf['info_url'], params={'access_token' : access_token})
-    data = response.json()
-    printJsonData(data)
-    user = authenticate(username=data['login'])
-    if user:
-        login(request, user)
-        return redirect('home')
-    info_usr = {
-        'email' : data['email'],
-        'first_name' : data['first_name'],
-        'last_name' : data['last_name'],
-        'profile_image' : data['image']['versions']['medium'],
-    }
-    User.objects.create_user(data['login'], None, **info_usr)
-    return redirect('login')
+    if response.status_code == 200:
+        access_token  = response.json()['access_token']
+        response = requests.get(conf['info_url'], params={'access_token' : access_token})
+        data = response.json()
+        printJsonData(data)
+        user = authenticate(username=data['login'])
+        if user:
+            login(request, user)
+            return redirect('home')
+        info_usr = {
+            'email' : data['email'],
+            'first_name' : data['first_name'],
+            'last_name' : data['last_name'],
+            'profile_image' : data['image']['versions']['medium'],
+        }
+        User.objects.create_user(data['login'], None, **info_usr)
+        return redirect('login')
+    print(f"here{c}")
+    print(f"{c.r}statusCodeOf the token response:{response.status_code}{c.d}")
+    
 
 def Logout(request):
     logout(request)
