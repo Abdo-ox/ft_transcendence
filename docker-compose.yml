@@ -18,7 +18,10 @@ services:
       - db_nginx
 
   db_nginx:
-    build: ./srcs/db_nginx
+    build: 
+      context: ./srcs/db_nginx
+      args:
+        CRT_PATH: ${PATH_CRT}
     container_name: db_nginx
     ports:
       - "443:443"

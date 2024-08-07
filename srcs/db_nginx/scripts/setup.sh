@@ -11,12 +11,6 @@ psql -U $DB_USER -c "create database $DB_NAME;"
 echo "---------------------------------------------------->"
 psql -U $DB_USER -c "alter user $DB_USER with password '${DB_PASS}'"
 echo "---------------------------------------------------->"
-apt update && apt install openssl > /dev/null 2>&1 
-mkdir -p $PATH_CRT
-
-openssl genpkey -algorithm RSA -out $PATH_CRT/my.key > /dev/null 2>&1 
-openssl req -new -key $PATH_CRT/my.key -out $PATH_CRT/my.csr -subj "/CN=localhost" > /dev/null 2>&1 
-openssl x509 -req -days 365 -in $PATH_CRT/my.csr -signkey $PATH_CRT/my.key -out $PATH_CRT/my.crt > /dev/null 2>&1 
 
 cat << EOF > /etc/nginx/nginx.conf
 user www-data;
