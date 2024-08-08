@@ -4,6 +4,7 @@ from .serializer import UserSerializer
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from rest_framework.decorators import api_view
+from django.conf import settings
 
 @api_view(['GET'])
 def getCsrfToken(request):
@@ -24,3 +25,15 @@ def UserData(request):
     users = User.objects.all()
     seriaUsers = UserSerializer(users, many=True)
     return JsonResponse({'users': [seriaUsers.data]})
+
+def sendOauthData(request):
+    conf = settings.OAUTH_CONFIG['42']
+    params = {
+        'base_url': conf['base_url'],
+        'app': {
+            'redirect_uri': conf['redirect_uri'],
+            'client_id': conf['client_id'],
+            'response_type': 'code'
+        }
+    }
+    return JsonResponse(params)

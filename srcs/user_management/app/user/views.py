@@ -37,9 +37,6 @@ def Register(request):
     errors = form.errors.as_json()
     return JsonResponse(json.loads(errors))
 
-def redirectTo42(request):
-    return redirect("https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-589237e6394550420d14a9a59740b48214effbb5b50d9943c952f85a1e639e46&redirect_uri=https%3A%2F%2Flocalhost%2Fapi%2F42%2Fcallback&response_type=code")
-
 def printJsonData(data):
     for key, value in data.items():
         if isinstance(value, dict):

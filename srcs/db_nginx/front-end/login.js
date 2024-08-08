@@ -17,10 +17,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('intra-btn').addEventListener('click', ()=>{
         console.log('clicked');
-        fetch('/api/42/oauth/').then(response =>{
-            if (response.redirected)
-                console.log("you are redirected to the url:", response.url);
+        fetch('/api/42/data/').then(response =>{
+            return response.json();
             console.log(response);
+        }).then( data => {
+            const url = new URLSearchParams(data.app);
+            window.location.href = data.base_url + "?" + url.toString();
+            console.log(url.toString());
         }).catch(error => {
             console.log(error);
         });
